@@ -1,112 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Who Paid Last?</title>
+
+<title>UPI Payments</title>
+
 <style>
-:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
---bg:#f6f5f1;--card:#fff;--text:#1d1d1b;--muted:#6b6a65;--accent:#0f766e;--accent-bg:#d9f2ee;--next:#b45309;--next-bg:#fdecd3;--line:#e4e2db}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151514;--card:#212120;--text:#f1f0ea;--muted:#a09f98;--accent:#5eead4;--accent-bg:#12403b;--next:#fbbf6a;--next-bg:#47320f;--line:#34332f}}
-:root[data-theme="dark"]{--bg:#151514;--card:#212120;--text:#f1f0ea;--muted:#a09f98;--accent:#5eead4;--accent-bg:#12403b;--next:#fbbf6a;--next-bg:#47320f;--line:#34332f}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*,*:before,*:after{box-sizing:inherit}
-body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:20px 16px 40px;min-height:100vh}
-main{max-width:460px;margin:0 auto}
-h1{font-size:22px;margin:8px 0 4px}
-.sub{color:var(--muted);font-size:14px;margin:0 0 18px}
-.hero{background:var(--accent-bg);border-radius:18px;padding:18px;margin-bottom:12px}
-.hero small{color:var(--muted);display:block;font-size:13px}
-.hero b{font-size:30px;color:var(--accent);display:block;margin-top:2px}
-.next{background:var(--next-bg);border-radius:14px;padding:12px 16px;margin-bottom:20px;font-size:15px}
-.next b{color:var(--next)}
-.list{display:grid;gap:10px}
-button.p{display:flex;align-items:center;justify-content:space-between;width:100%;padding:16px 18px;font-size:18px;font-weight:600;color:var(--text);background:var(--card);border:2px solid var(--line);border-radius:14px;cursor:pointer;text-align:left}
-button.p:active{transform:scale(.98)}
-button.p.last{border-color:var(--accent);background:var(--accent-bg)}
-button.p.nx{border-color:var(--next)}
-.tag{font-size:12px;font-weight:600;padding:3px 9px;border-radius:99px}
-.last .tag{background:var(--accent);color:var(--bg)}
-.nx .tag{background:var(--next);color:var(--bg)}
-h2{font-size:15px;margin:26px 0 8px;color:var(--muted)}
-ul{list-style:none;margin:0;padding:0;font-size:14px}
-li{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line)}
-li span:last-child{color:var(--muted)}
-.note{font-size:12px;color:var(--muted);margin-top:14px}
+:root {
+--bg:#f6f5f1;
+--card:#ffffff;
+--text:#1d1d1b;
+--muted:#6b6a65;
+--accent:#0f766e;
+--accent-bg:#d9f2ee;
+--line:#e4e2db;
+}
+
+@media(prefers-color-scheme:dark) {
+:root {
+--bg:#151514;
+--card:#212120;
+--text:#f1f0ea;
+--muted:#a09f98;
+--accent:#5eead4;
+--accent-bg:#12403b;
+--line:#34332f;
+}
+}
+
+* {
+box-sizing:border-box;
+}
+
+body {
+margin:0;
+padding:20px 16px 40px;
+min-height:100vh;
+background:var(--bg);
+color:var(--text);
+font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+
+main {
+max-width:460px;
+margin:auto;
+}
+
+h1 {
+font-size:24px;
+margin:12px 0 5px;
+}
+
+.sub {
+font-size:14px;
+color:var(--muted);
+margin-bottom:22px;
+}
+
+.amount {
+background:var(--accent-bg);
+padding:20px;
+border-radius:18px;
+text-align:center;
+margin-bottom:22px;
+}
+
+.amount small {
+color:var(--muted);
+}
+
+.amount strong {
+display:block;
+font-size:34px;
+color:var(--accent);
+margin-top:3px;
+}
+
+.upi-card {
+background:var(--card);
+border:1px solid var(--line);
+border-radius:16px;
+padding:17px;
+margin-bottom:13px;
+}
+
+.name {
+font-size:19px;
+font-weight:700;
+}
+
+.id {
+font-size:13px;
+color:var(--muted);
+margin-top:6px;
+word-break:break-all;
+}
+
+.buttons {
+display:flex;
+gap:9px;
+margin-top:15px;
+}
+
+button {
+flex:1;
+padding:13px 8px;
+border:0;
+border-radius:11px;
+font-size:14px;
+font-weight:700;
+cursor:pointer;
+}
+
+.pay {
+background:var(--accent);
+color:white;
+}
+
+.copy {
+background:var(--accent-bg);
+color:var(--text);
+}
+
+.back {
+display:block;
+width:100%;
+margin-top:20px;
+padding:15px;
+background:var(--card);
+color:var(--text);
+border:1px solid var(--line);
+border-radius:13px;
+font-size:15px;
+font-weight:600;
+text-align:center;
+text-decoration:none;
+}
+
+.note {
+font-size:12px;
+color:var(--muted);
+line-height:1.6;
+margin-top:20px;
+}
 </style>
 </head>
+
 <body>
+
 <main>
-<h1>💸 Who Paid Last?</h1>
-<p class="sub">₹50 each · tap your name after you pay</p>
-<div class="hero"><small>Last paid</small><b id="last">—</b></div>
-<div class="next" id="next">Tap a name to start.</div>
-<div class="list" id="list"></div>
-<h2>Recent payments</h2>
-<ul id="hist"><li><span>Nothing yet</span><span></span></li></ul>
-<p class="note" id="note"></p>
+
+<h1>💳 UPI Payments</h1>
+
+<p class="sub">Select a person to make a payment.</p>
+
+<div class="amount">
+<small>Payment Amount</small>
+<strong>₹50</strong>
+</div>
+
+<div id="upiList"></div>
+
+<a href="index.html" class="back">← Back to Home</a>
+
+<p class="note">
+Payments are opened through your installed UPI application.
+Always verify the recipient's name and amount before confirming.
+</p>
+
 </main>
+
 <script>
-// STEP: paste your Firebase Realtime Database URL between the quotes (no slash at the end)
-const DB_URL="https://watebill-default-rtdb.firebaseio.com";
-const NAMES=["Prajwal","Prasad","John","Aditya","Sangamesh"];
-let state={last:null,history:[]};
-let ref=null;
 
-function fmt(t){try{return new Date(t).toLocaleString([], {day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}catch(e){return""}}
+const AMOUNT = "50.00";
 
-function render(){
-  const li=NAMES.indexOf(state.last);
-  const nx=li>=0?NAMES[(li+1)%NAMES.length]:null;
-  document.getElementById("last").textContent=state.last||"—";
-  document.getElementById("next").innerHTML=nx?"Next to pay: <b>"+nx+"</b>":"Tap a name to start.";
-  const list=document.getElementById("list");list.innerHTML="";
-  NAMES.forEach(n=>{
-    const b=document.createElement("button");
-    b.className="p"+(n===state.last?" last":n===nx?" nx":"");
-    const s=document.createElement("span");s.textContent=n;b.appendChild(s);
-    if(n===state.last||n===nx){const t=document.createElement("span");t.className="tag";t.textContent=n===state.last?"PAID LAST":"NEXT";b.appendChild(t)}
-    b.onclick=()=>pick(n);
-    list.appendChild(b);
-  });
-  const h=document.getElementById("hist");h.innerHTML="";
-  const items=(state.history||[]).slice(0,10);
-  if(!items.length){h.innerHTML="<li><span>Nothing yet</span><span></span></li>"}
-  items.forEach(x=>{const l=document.createElement("li");const a=document.createElement("span");a.textContent=x.name;const c=document.createElement("span");c.textContent=fmt(x.at);l.append(a,c);h.appendChild(l)});
+const USERS = [
+{
+name:"Aditya",
+upi:"7204724861@ptaxis"
+},
+{
+name:"Prasad",
+upi:"9108637104-4@axl"
+},
+{
+name:"Prajwal",
+upi:"mulwadprajwal586-2@okicici"
+},
+{
+name:"John",
+upi:"7019682784@nyes"
+},
+{
+name:"Sangamesh",
+upi:"8550806015@nyes"
+}
+];
+
+function payUser(user) {
+
+const params = new URLSearchParams({
+pa:user.upi,
+pn:user.name,
+am:AMOUNT,
+cu:"INR",
+tn:"Payment"
+});
+
+window.location.href = "upi://pay?" + params.toString();
+
 }
 
-async function pick(n){
-  if(n===state.last)return;
-  const entry={name:n,at:Date.now()};
-  state={last:n,history:[entry].concat(state.history||[]).slice(0,30)};
-  render();
-  try{ await fetch(DB_URL+"/turn.json",{method:"PUT",body:JSON.stringify(state)}); }catch(e){document.getElementById("note").textContent="Could not save. Check internet."}
+async function copyUPI(upi,button) {
+
+try {
+
+await navigator.clipboard.writeText(upi);
+
+button.textContent = "Copied!";
+
+setTimeout(() => {
+button.textContent = "Copy UPI ID";
+},1500);
+
+} catch(e) {
+
+button.textContent = "Copy unavailable";
+
 }
 
-render();
-async function load(){
-  try{
-    const r=await fetch(DB_URL+"/turn.json",{cache:"no-store"});
-    const d=await r.json();
-    if(d&&(d.last!==state.last||(d.history||[]).length!==(state.history||[]).length)){state={last:d.last||null,history:d.history||[]};render()}
-    document.getElementById("note").textContent="Live: everyone sees the same name.";
-  }catch(e){document.getElementById("note").textContent="Offline. Trying again..."}
 }
-if(!DB_URL){document.getElementById("note").textContent="Setup needed: add your Firebase URL in the file (DB_URL)."}
-else{load();setInterval(load,4000)}
+
+const container = document.getElementById("upiList");
+
+USERS.forEach(user => {
+
+const card = document.createElement("div");
+card.className = "upi-card";
+
+const name = document.createElement("div");
+name.className = "name";
+name.textContent = "👤 " + user.name;
+
+const id = document.createElement("div");
+id.className = "id";
+id.textContent = user.upi;
+
+const buttons = document.createElement("div");
+buttons.className = "buttons";
+
+const pay = document.createElement("button");
+pay.className = "pay";
+pay.textContent = "Pay ₹50";
+pay.onclick = () => payUser(user);
+
+const copy = document.createElement("button");
+copy.className = "copy";
+copy.textContent = "Copy UPI ID";
+copy.onclick = () => copyUPI(user.upi,copy);
+
+buttons.append(pay,copy);
+card.append(name,id,buttons);
+
+container.appendChild(card);
+
+});
+
 </script>
-<script>
-// your own mp3 files, uploaded next to index.html
-var SONGS={intro:"intro.mp3",name:"name.mp3",pay:"pay.mp3"},PL={},started=false;
-function play(k){try{for(var x in PL){PL[x].pause();PL[x].currentTime=0}
- if(!PL[k])PL[k]=new Audio(SONGS[k]);var p=PL[k].play();if(p&&p.catch)p.catch(function(){})}catch(e){}}
-try{PL.intro=new Audio(SONGS.intro);var ap=PL.intro.play();if(ap&&ap.then)ap.then(function(){started=true}).catch(function(){})}catch(e){}
-document.addEventListener("click",function(e){
- var n=e.target.closest("#list button"),a=e.target.closest("#pay a");
- if(!started){started=true;if(!n&&!a)play("intro")}
- if(n){play("name");return}
- if(a&&a.href.indexOf("upi:")===0){e.preventDefault();play("pay");setTimeout(function(){location.href=a.href},900)}
-},true);
-</script>
+
 </body>
 </html>
